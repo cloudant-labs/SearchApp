@@ -31,5 +31,5 @@ The default search.html example works for Twitter data and is based on the style
 
 Now view your app at
 
-<pre><code>http://<user>.cloudant.com:5984/<db_or_couchapp_you_want_to_search>/_design/searchapp/search.html</code></pre>
+<pre><code>http://<user>.cloudant.com:5984/<db_or_couchapp_you_want_to_search>/_design/searchapp/index.html</code></pre>
 
