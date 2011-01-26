@@ -1,0 +1,4 @@
+{
+    "name": "SearchApp",
+    "description": "SearchApp is a CouchDB application that enables full text search and creates a simple search page for any CouchApp or CouchDB database hosted on Cloudant's hosted CouchDB (https://cloudant.com)."
+}

@@ -1,0 +1,8 @@
+{
+    "_id":"_design/lucene",
+    "language":"java",
+    "views" : 
+	{
+	"index" : {"map":{"classname":"com.cloudant.indexers.TextAndNumberSearch"},"reduce":"_count"}
+	}    
+}
