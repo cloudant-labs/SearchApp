@@ -33,3 +33,4 @@ Now view your app at
 
 <pre><code>http://&lt;user&gt;.cloudant.com:5984/&lt;db_or_couchapp_you_want_to_search&gt;/_design/searchapp/index.html</code></pre>
 
+By default, searches are executed against the field "text".  If you want to search the field "data" for the string "red", type data:red in the search box. 
