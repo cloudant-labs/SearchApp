@@ -6,13 +6,13 @@
   <link rel="stylesheet" href="style/reset.css" type="text/css" media="screen" charset="utf-8"/>  
   <link rel="stylesheet" href="style/main.css" type="text/css" media="screen" charset="utf-8"/>
 </head>
-<body id='index'>
+<body onload="load();" id='index'>
 	<div id='header'>
 		<h1></h1>
 		<p id='attribution'>
 		  created by <a target='_blank' href='http://twitter.com/stinky_teddy'>@stinky_teddy</a> - 
-		  powered by 
-		  <a target='_blank' href='http://twitter.com/couchdb'>@CouchDB</a> 
+		  for 
+		  <a target='_blank' href='http://twitter.com/cloudant'>@cloudant</a> 
 		  <a target='_blank' href='http://couchdb.apache.org/'><img src='/favicon.ico' width='16px' height='16px' valign='middle' /></a>
 		</p>
 	</div>
@@ -45,4 +45,10 @@
     $('title, h1').html(app.ddoc.couchapp.name);
     $('#tweets').evently(app.ddoc.evently.search, app);
   });
+</script>
+<script type="text/javascript">
+    function load() {
+    var query = $.query.get("q");
+    document.forms["myform"]["q"].value = decodeURIComponent(query);
+    }
 </script>

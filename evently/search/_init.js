@@ -40,7 +40,7 @@ function () {
 		  }
 		}
 		if (total > finish) {
-		  var newQuery =  $.query.set("skip",skip + limit).toString();
+		  var newQuery =  $.query.set("skip",parseInt(skip) + parseInt(limit)).toString();
 		  var newUrl = location.pathname + newQuery;
 		  $(search).append("<a href=\'" + newUrl + "\'>More Results</a>");
 		}
