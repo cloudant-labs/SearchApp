@@ -39,11 +39,8 @@
 
             loaded = rows.length
 
-            if (total > loaded) {
-                $('#search .more').show()
-            } else {
-                $('#search .more').hide()
-            }
+            $('#search .more').toggle(total > loaded)
+            $('#search .info').toggle(total > 0)
 
             fill($('#search .info'), { loaded: loaded, total: total })
         })
