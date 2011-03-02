@@ -56,8 +56,9 @@
         el.html(Mustache.to_html(template, data)).removeClass('template')
     }
 
-    $('#search .box').live('keydown', function() {
-        debounce(DELAY, search)
+    $('#search .form').live('submit', function() {
+        search()
+        return false
     })
 
     $('#search .more').live('click', function() {

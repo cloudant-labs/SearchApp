@@ -4,5 +4,8 @@
 /* Bare-bones styles */
 
 body { margin: 100px 10%; font: 16px/24px 'lucida grande', 'lucida sans unicode', sans-serif }
-#search .box, #search .more { width: 100%; font: inherit }
+#search .box, #search .more, #search .go { width: 100%; font: inherit }
 #search .info { font-size: 12px; color: #999; }
+#search .box { float: left; width: 80%; }
+#search .go { width: 15%; }
+#search .info { clear: both }
