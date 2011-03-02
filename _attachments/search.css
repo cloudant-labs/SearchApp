@@ -5,3 +5,4 @@
 
 body { margin: 100px 10%; font: 16px/24px 'lucida grande', 'lucida sans unicode', sans-serif }
 #search .box, #search .more { width: 100%; font: inherit }
+#search .info { font-size: 12px; color: #999; }

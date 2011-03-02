@@ -9,6 +9,8 @@
     <h1>Search</h1>
     <input type="text" class="box" />
 
+    <div class="info template">Showing {{loaded}} of {{total}} results.</div>
+
     <div class="results template">
       {{#rows}}
       {{#doc}}
@@ -27,6 +29,8 @@
     </div>
 
     <div class="status">Showing <span class="current">0</span> of <span class="total">0</span></div>
+
+    <div class="info template">Showing {{loaded}} of {{total}} results.</div>
 
     <button class="more">More results</button>
 

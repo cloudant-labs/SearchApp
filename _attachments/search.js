@@ -27,32 +27,36 @@
 
         return $.get('../../_search', { q: query, default_field: 'all', include_docs: true, limit: ROWS, skip: cache[query].length }, function(results) {
             cache[query] = cache[query].concat(results.rows)
-            return callback(cache[query].slice(0, total))
+            return callback(cache[query].slice(0, total), results.total_rows)
         })
     }
 
     function search(start) {
-        if (!template) {
-            template = $('#search .results').html()
-            $('#search .results').html('').removeClass('template')
-        }
-
         if (!start) loaded = 0
 
-        return loadResults($('#search .box').val(), loaded+ROWS, function(rows) {
-            var html = Mustache.to_html(template, { rows: rows })
-            $('#search .results').html(html)
+        return loadResults($('#search .box').val(), loaded+ROWS, function(rows, total) {
+            fill($('#search .results'), { rows: rows })
 
             loaded = rows.length
 
-            if (rows.length == ROWS) {
+            if (total > loaded) {
                 $('#search .more').show()
             } else {
                 $('#search .more').hide()
             }
 
+            fill($('#search .info'), { loaded: loaded, total: total })
         })
 
+    }
+
+    function fill(el, data) {
+        var template = el.data('template')
+        if (!template) {
+            template = el.html()
+            el.data('template', template)
+        }
+        el.html(Mustache.to_html(template, data)).removeClass('template')
     }
 
     $('#search .box').live('keydown', function() {
