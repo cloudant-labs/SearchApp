@@ -8,7 +8,7 @@
         f.timeout = setTimeout(function() {
             delete f.timeout
             f.xhr = f()
-             f.xhr.complete(function() {
+            if (f.xhr) f.xhr.complete(function() {
                 delete f.xhr
             })
         }, delay)
