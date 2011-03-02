@@ -1,8 +1,24 @@
 {
     "_id":"_design/lucene",
     "language":"java",
-    "views" : 
-	{
-	"index" : {"map":{"classname":"com.cloudant.indexers.CustomSearch","configure":{"fields":[{"name":".*","lucenename":"all","type":"string","regexp":true}]}},"reduce":"_count","comment":"This indexes all json values in the document and places them in a single searchable field name all"}
-	}    
+    "views" :
+    {
+        "index" : {
+            "map": {
+                "classname": "com.cloudant.indexers.CustomSearch",
+                "configure": {
+                    "fields": [
+                        {
+                            "name": ".*",
+                            "lucenename":"all",
+                            "type":"string",
+                            "regexp":true
+                        }
+                    ]
+                }
+            },
+            "reduce": "_count",
+            "comment": "This indexes all json values in the document and places them in a single searchable field name all"
+        }
+    }
 }
