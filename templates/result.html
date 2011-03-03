@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Result {{_id}}</title>
+    <link rel="stylesheet" type="text/css" href="../../search.css" />
+  </head>
+  <body id="result">
+    <h1>Search Result {{_id}}</h1>
+    <div class="result">
+        <p>{{{body}}}</p>
+        <div style="font-size: 12px; color: #999; margin-top: -8px">
+          <span class="by">by</span>
+          <a class="username" href="/user/#{{user}}">{{ user }}</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a class="commentLink" href="../../../../{{_id}}">json</a>
+        </div>
+
+        <div style="margin-left: 24px">
+        {{#comments}}
+        <p>{{{body}}}</p>
+        <div style="font-size: 12px; color: #999; margin-top: -8px">
+          <span class="by">by</span>
+          <a class="username" href="/user/#{{user}}">{{ user }}</a>
+        </div>
+        {{/comments}}
+        </div>
+    </div>
+  </body>
+</html>

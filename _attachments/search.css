@@ -9,4 +9,4 @@ h1 { font-size: 24px }
 #search .info { font-size: 12px; color: #999; }
 #search .box { float: left; width: 80%; }
 #search .go { width: 15%; }
-#search .info { clear: both }
+#search .info, #search .results { clear: both }

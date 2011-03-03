@@ -57,7 +57,7 @@
     function fill(el, data) {
         var template = el.data('template')
         if (!template) {
-            template = el.html()
+            template = decodeURIComponent(el.html())
             el.data('template', template)
         }
         el.html(Mustache.to_html(template, data)).removeClass('template')
