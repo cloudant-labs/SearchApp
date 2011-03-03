@@ -1,18 +1,5 @@
 ;(function($, undefined) {
     var ROWS = 10
-    var DELAY = 300
-
-    function debounce(delay, f) {
-        if (f.timeout) clearTimeout(f.timeout)
-        if (f.xhr) f.xhr.abort()
-        f.timeout = setTimeout(function() {
-            delete f.timeout
-            f.xhr = f()
-            if (f.xhr) f.xhr.complete(function() {
-                delete f.xhr
-            })
-        }, delay)
-    }
 
     $.ajaxSetup({ contentType: null, dataType: 'json' })
 
