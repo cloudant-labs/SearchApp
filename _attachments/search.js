@@ -8,28 +8,32 @@
     var loaded = 0
 
     function loadResults(query, total, callback) {
-        if (cache[query] && cache[query].length && (cache[query].length >= total)) return callback(cache[query])
+        if (cache[query] && cache[query].loading) return;
+        if (cache[query] && (cache[query].rows.length >= total)) return callback(cache[query])
 
-        if (!cache[query] || (!cache[query].length)) cache[query] = []
+        if (!cache[query]) cache[query] = { rows: [], loading: true, offset: 0 }
 
-        return $.get('../../_search', { q: query, default_field: 'all', include_docs: true, limit: ROWS, skip: cache[query].length }, function(results) {
-            cache[query] = cache[query].concat(results.rows)
-            return callback(cache[query].slice(0, total), results.total_rows)
+        return $.get('../../_search', { q: query, default_field: 'all', include_docs: true, limit: ROWS, skip: cache[query].rows.length }, function(results) {
+            cache[query] = {
+                rows: cache[query].rows.concat(results.rows),
+                total_rows: results.total_rows
+            }
+            return callback(cache[query])
         })
     }
 
     function search(start) {
         if (!start) loaded = 0
 
-        return loadResults($('#search .box').val(), loaded+ROWS, function(rows, total) {
-            fill($('#search .results'), { rows: rows })
+        return loadResults($('#search .box').val(), loaded+ROWS, function(results) {
+            fill($('#search .results'), results)
 
-            loaded = rows.length
+            loaded = results.rows.length
 
-            $('#search .more').toggle(total > loaded)
-            $('#search .info').toggle(total > 0)
+            $('#search .more').toggle(results.total_rows > loaded)
+            $('#search .info').toggle(results.total_rows > 0)
 
-            fill($('#search .info'), { loaded: loaded, total: total })
+            fill($('#search .info'), { loaded: loaded, total: results.total_rows })
         })
 
     }
