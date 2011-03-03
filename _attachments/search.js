@@ -1,4 +1,17 @@
 ;(function($, undefined) {
+
+    // http://stackoverflow.com/questions/901115/get-querystring-values-with-jquery/2880929#2880929
+    function parseQS() {
+        var urlParams = {};
+        var e,
+        a = /\+/g,  // Regex for replacing addition symbol with a space
+        r = /([^&=]+)=?([^&]*)/g,
+        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+        q = window.location.search.substring(1);
+        while (e = r.exec(q)) urlParams[d(e[1])] = d(e[2]);
+        return urlParams;
+    }
+
     var ROWS = 10
 
     $.ajaxSetup({ contentType: null, dataType: 'json' })
@@ -25,7 +38,10 @@
     function search(start) {
         if (!start) loaded = 0
 
-        return loadResults($('#search .box').val(), loaded+ROWS, function(results) {
+        var q = $('#search .box').val()
+        updateUrl(q)
+
+        return loadResults(q, loaded+ROWS, function(results) {
             fill($('#search .results'), results)
 
             loaded = results.rows.length
@@ -56,9 +72,22 @@
         search(loaded)
     })
 
+    function updateUrl(q) {
+        if (history.pushState) {
+            document.title = 'Searching for "'+q+'"'
+            history.pushState({ q: q }, document.title, 'index.html?q=' + encodeURIComponent(q))
+        }
+    }
 
-    $(function() {
-        if ($('#search .box').val()) search()
-    })
+    function init() {
+        var q = parseQS(document.location.search).q
+        if (q) {
+            $('#search .box').val(q)
+            search()
+        }
+    }
+
+    $(window).bind('popstate', init)
+    $(init)
 
 })(jQuery);
