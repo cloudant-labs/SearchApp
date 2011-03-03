@@ -3,7 +3,8 @@
 
 /* Bare-bones styles */
 
-body { margin: 100px 10%; font: 16px/24px 'lucida grande', 'lucida sans unicode', sans-serif }
+body { margin: 100px 10%; font: 16px/24px helvetica, arial, 'lucida grande', 'lucida sans unicode', sans-serif }
+h1 { font-size: 24px }
 #search .box, #search .more, #search .go { width: 100%; font: inherit }
 #search .info { font-size: 12px; color: #999; }
 #search .box { float: left; width: 80%; }
