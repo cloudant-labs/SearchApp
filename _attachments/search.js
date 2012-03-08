@@ -38,7 +38,7 @@
             var include_docs = urlParams.include_docs;
             var newquery = query + " OR (";
             if (undefined != sq) {
-                    newquery = newquery + "sq AND(";
+                    newquery = newquery + sq + " AND (";
             }
             if (undefined != aid) {
                     var ids = new Array();
