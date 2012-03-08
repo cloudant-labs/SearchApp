@@ -12,7 +12,8 @@
         return urlParams;
     }
 
-    var ROWS = 10
+    var ROWS = 1000;
+    var SHOWROWS = 10;
 
     $.ajaxSetup({ contentType: null, dataType: 'json' })
 
@@ -26,12 +27,36 @@
 
         if (!cache[query]) cache[query] = { rows: [], loading: true, offset: 0 }
 
-        return $.get('../../_search', { q: query, default_field: 'all', include_docs: true, limit: ROWS, skip: cache[query].rows.length }, function(results) {
+        return $.get('../../_search', { q: query, default_field: 'all', include_docs: false, limit: ROWS, skip: cache[query].rows.length }, function(results) {
             cache[query] = {
                 rows: cache[query].rows.concat(results.rows),
                 total_rows: results.total_rows
             }
-            return callback(cache[query])
+            var urlParams = parseQS(document.location.search);
+            var aid = urlParams.aid;
+            var sq = urlParams.sq;
+            var include_docs = urlParams.include_docs;
+            var newquery = query + " OR (";
+            if (undefined != sq) {
+                    newquery = newquery + "sq AND(";
+            }
+            if (undefined != aid) {
+                    var ids = new Array();
+                    for (row in results.row) {
+                            ids.push(aid + ":" + row.id);
+                    }
+                    newquery = newquery + ids.join(" OR ") + ")";
+            }
+            if (undefined != sq) {
+                    newquery = newquery + ")";
+            }            
+            return  $.get('../../_search', { q: newquery, default_field: 'all', include_docs: false, limit: SHOWROWS, skip: cache[newquery].rows.length }, function(data) {
+                                        cache[newquery] = {
+                                                rows: cache[newquery].rows.concat(data.rows),
+                                                total_rows: data.total_rows
+                                        }
+                                        callback(cache[newquery]) 
+                    })
         })
     }
 
