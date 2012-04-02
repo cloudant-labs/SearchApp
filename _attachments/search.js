@@ -22,20 +22,33 @@
     var loaded = 0
 
     function loadResults(query, total, callback) {
+        console.log("query");
+        console.log(query);
+        console.log("cache[query]");
+        console.log(cache[query]);
+
         if (cache[query] && cache[query].loading) return;
         if (cache[query] && (cache[query].rows.length >= total)) return callback(cache[query])
 
         if (!cache[query]) cache[query] = { rows: [], loading: true, offset: 0 }
-
         return $.get('../../_search', { q: query, default_field: 'all', include_docs: false, limit: ROWS, skip: cache[query].rows.length }, function(results) {
             cache[query] = {
                 rows: cache[query].rows.concat(results.rows),
                 total_rows: results.total_rows
             }
+            console.log("cache[query]");
+            console.log(cache[query]);
             var urlParams = parseQS(document.location.search);
+            console.log("urlParams");
+            console.log(urlParams);
             var aid = urlParams.aid;
+            console.log("aid");
+            console.log(aid);
             var sq = urlParams.sq;
-            var include_docs = urlParams.include_docs;
+            console.log("sq");
+            console.log(sq);
+//            return callback(cache[query]); //short curuit the rest
+
             var newquery = query + " OR (";
             if (undefined != sq) {
                     newquery = newquery + sq + " AND (";
@@ -45,11 +58,13 @@
                     for (row in results.row) {
                             ids.push(aid + ":" + row.id);
                     }
-                    newquery = newquery + ids.join(" OR ") + ")";
+                newquery = newquery + ids.join(" OR ") + ")";
             }
             if (undefined != sq) {
                     newquery = newquery + ")";
-            }            
+            }
+            console.log("newquery");
+            console.log(newquery);
             return  $.get('../../_search', { q: newquery, default_field: 'all', include_docs: false, limit: SHOWROWS, skip: cache[newquery].rows.length }, function(data) {
                                         cache[newquery] = {
                                                 rows: cache[newquery].rows.concat(data.rows),
