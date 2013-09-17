@@ -31,6 +31,6 @@ The default search.html example works for Twitter data and is based on the style
 
 Now view your app at
 
-    https://&lt;user&gt;.cloudant.com/&lt;db_or_couchapp_you_want_to_search&gt;/_design/searchapp/index.html
+    https://<user>.cloudant.com/<db_or_couchapp_you_want_to_search>/_design/searchapp/index.html
 
 By default, searches are executed against the field "all". 
