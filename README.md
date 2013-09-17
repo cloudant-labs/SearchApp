@@ -4,7 +4,7 @@ SearchApp is a CouchDB application that enables full text search and creates a s
 
 ## Requirements
 
-cloudant hosted account (sign up at <https://cloudant.com/#!/solutions/cloud>), couchapp
+cloudant hosted account (sign up at <https://cloudant.com/sign-up/>), couchapp
 
 ## Install
 
