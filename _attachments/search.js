@@ -26,10 +26,11 @@
 
         if (!cache[query]) cache[query] = { rows: [], loading: true, offset: 0 }
 
-        return $.get('../../_search', { q: query, default_field: 'all', include_docs: true, limit: ROWS, skip: cache[query].rows.length }, function(results) {
+        return $.get('../lucene/_search/searchapp', { q: 'all:' + query, include_docs: true, limit: ROWS, bookmark: cache[query].bookmark }, function(results) {
             cache[query] = {
                 rows: cache[query].rows.concat(results.rows),
-                total_rows: results.total_rows
+                total_rows: results.total_rows,
+                bookmark: results.bookmark
             }
             return callback(cache[query])
         })

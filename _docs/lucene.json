@@ -1,14 +1,8 @@
 {
-    "_id":"_design/lucene",
-    "language":"java",
-    "views" :
-    {
-        "index" : {
-            "map": {
-                "classname": "com.cloudant.indexers.DefaultSearch"
-                },
-            "reduce": "_count",
-            "comment": "This indexes all json values in the document and places them in a single searchable field name all as well as their named field"
+    "_id": "_design/lucene",
+    "indexes": {
+        "searchapp": {
+            "index": "function(doc){\n  for(var key in doc){\nif(doc.hasOwnProperty(key)){\nif(key[0] === \"_\") continue;\n index(\"all\", doc[key]);\n index(key, doc[key]);\n}\n}\n}"
         }
     }
 }
